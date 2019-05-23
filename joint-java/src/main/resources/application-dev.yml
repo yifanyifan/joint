@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
+    url: jdbc:mysql://192.168.8.168/16_ledi_platform?useUnicode=true&characterEncoding=utf-8
+    username: root
+    password: 123456
+    driverClassName: com.mysql.jdbc.Driver
+    initialSize: 5
+    minIdle: 5
+    maxActive: 20
+    maxWait: 60000
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT 1 FROM DUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    exceptionSorter: true
+    testOnReturn: false
+    poolPreparedStatements: true
+    filters: stat,wall,log4j
+    maxPoolPreparedStatementPerConnectionSize: 20
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis:500
+    useGlobalDataSourceStat: true
+    filter:
+      stat:
+        log-slow-sql: true
+        slow-sql-millis: 1000
+        merge-sql: true
+      wall:
+        config:
+          multi-statement-allow: true
+
+airwallex:
+  authenticationUrl: https://api-demo.airwallex.com/api/v1/authentication/login
+  filesUploadUrl: https://files-demo.airwallex.com/api/v1/files/upload
+  accountsCreateUrl: https://api-demo.airwallex.com/api/v1/accounts/create
+  balancesCurrentUrl: https://api-demo.airwallex.com/api/v1/balances/current
+  balancesHistoryUrl: https://api-demo.airwallex.com/api/v1/balances/history
+  chargesCreateUrl: https://api-demo.airwallex.com/api/v1/charges/create

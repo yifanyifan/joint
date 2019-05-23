@@ -1,0 +1,57 @@
+server:
+  tomcat:
+    uri-encoding: UTF-8
+    max-threads: 1000
+    min-spare-threads: 30
+  port: 8089
+  connection-timeout: 15000ms
+  servlet:
+    context-path: /joint
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: joint-java
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      enabled: true
+  jpa:
+    generate-ddl: true
+    show-sql: true
+    format-sql: true
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+
+dubbo:
+  scan:
+    basePackages: org.master
+  ## ApplicationConfig Bean
+  application:
+    id: id-joint-java-app
+    name: joint-java
+    qos:
+      port: 22224
+      enable: true
+  ## ProtocolConfig - Bean Dubbo 服务协议配置
+  protocol:
+    id: id-joint-java-java
+    name: dubbo
+    port: 20894
+    status: server
+    serialization: kryo
+  registry:
+    id: id-joint-java-registry
+    address: zookeeper://localhost:2181
+  ## ProviderConfig Bean
+  consumer:
+    version: yifan
+    timeout: 30000
+    retries: 0
+    check: false
