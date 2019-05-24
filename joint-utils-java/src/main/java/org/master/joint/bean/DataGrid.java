@@ -1,9 +1,9 @@
-package org.master.joint.utils.bean;
+package org.master.joint.bean;
 
-import com.google.common.collect.Lists;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,5 +36,5 @@ public class DataGrid<T> implements Serializable {
     /**
      * 所有数据
      */
-    private List<T> rows = Lists.newArrayList();
+    private List<T> rows = new ArrayList<T>();
 }

@@ -1,4 +1,4 @@
-package org.master.joint.utils.jsoup;
+package org.master.joint.http;
 
 import com.alibaba.fastjson.JSONObject;
 import lombok.extern.slf4j.Slf4j;
@@ -27,6 +27,11 @@ import java.net.URL;
 import java.nio.charset.Charset;
 import java.util.Map;
 
+/**
+ * @Author: Yifan
+ * @Date: 2019/5/24 10:16
+ * @Description: 网络连接
+ */
 @Slf4j
 public class JsoupUtils {
 

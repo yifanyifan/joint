@@ -10,7 +10,6 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.master.joint.dto.airwallex.AccountRedis;
 import org.master.joint.dto.airwallex.accountscreate.request.Account_details;
 import org.master.joint.dto.airwallex.accountscreate.request.Address;
@@ -31,10 +30,10 @@ import org.master.joint.enums.IndustryCategoryEnum;
 import org.master.joint.enums.PurposeEnum;
 import org.master.joint.service.DemoService;
 import org.master.joint.service.RedisHashService;
-import org.master.joint.utils.bean.DataGrid;
-import org.master.joint.utils.bean.EshipBeanUtils;
-import org.master.joint.utils.bean.Version;
-import org.master.joint.utils.jsoup.JsoupUtils;
+import org.master.joint.bean.DataGrid;
+import org.master.joint.bean.BeanUtils;
+import org.master.joint.bean.Version;
+import org.master.joint.http.JsoupUtils;
 import org.master.joint.vo.airwallex.AirWallexRequestVO;
 import org.master.joint.vo.airwallex.AirWallexResponseVO;
 import org.master.joint.vo.airwallex.BalancesCurrentRequestVO;
@@ -97,7 +96,7 @@ public class AirwallexOperation {
 
         try {
             AirWallexRequestVO airWallexRequestVO = new AirWallexRequestVO();
-            EshipBeanUtils.copyExclude(chargesCreateRequestVO, airWallexRequestVO);
+            BeanUtils.copyExclude(chargesCreateRequestVO, airWallexRequestVO);
 
             //授权
             AirWallexResponseVO airWallexAuthenticationResponse = this.authentication(airWallexRequestVO);
@@ -116,7 +115,7 @@ public class AirwallexOperation {
             }
 
             ChargesCreateRequest airWallexChargesCreate = new ChargesCreateRequest();
-            EshipBeanUtils.copyExclude(chargesCreateRequestVO, airWallexChargesCreate);
+            BeanUtils.copyExclude(chargesCreateRequestVO, airWallexChargesCreate);
             airWallexChargesCreate.setReason(chargesCreateRequestVO.getReason().getSpec());
             airWallexChargesCreate.setRequest_id(UUID.randomUUID().toString());
             airWallexChargesCreate.setSource(accountRedis.getId());
@@ -148,7 +147,7 @@ public class AirwallexOperation {
 
         try {
             AirWallexRequestVO airWallexRequestVO = new AirWallexRequestVO();
-            EshipBeanUtils.copyExclude(airWallexBalancesHistoryRequestVO, airWallexRequestVO);
+            BeanUtils.copyExclude(airWallexBalancesHistoryRequestVO, airWallexRequestVO);
 
             //授权
             AirWallexResponseVO airWallexAuthenticationResponse = this.authentication(airWallexRequestVO);
@@ -196,7 +195,7 @@ public class AirwallexOperation {
         DataGrid dataGrid = new DataGrid();
         try {
             AirWallexRequestVO airWallexRequestVO = new AirWallexRequestVO();
-            EshipBeanUtils.copyExclude(airWallexBalancesCurrentRequestVO, airWallexRequestVO);
+            BeanUtils.copyExclude(airWallexBalancesCurrentRequestVO, airWallexRequestVO);
 
             //授权
             AirWallexResponseVO airWallexAuthenticationResponse = this.authentication(airWallexRequestVO);
@@ -329,7 +328,7 @@ public class AirwallexOperation {
 
         List<Identity_files> identity_filesList1 = new ArrayList<Identity_files>();
         Identity_files file1 = new Identity_files();
-        EshipBeanUtils.copyExclude(businessLicenseFileResponseVO, file1);
+        BeanUtils.copyExclude(businessLicenseFileResponseVO, file1);
         file1.setTag(IdentityFilesTagEnum.BUSINESS_LICENSE);
         file1.setDescription(businessLicenseFileResponseVO.getFilename());
         identity_filesList1.add(file1);
@@ -355,11 +354,11 @@ public class AirwallexOperation {
 
         List<Identity_files> identity_filesList2 = new ArrayList<Identity_files>();
         Identity_files files2 = new Identity_files();
-        EshipBeanUtils.copyExclude(personalFrontFileResponseVO, files2);
+        BeanUtils.copyExclude(personalFrontFileResponseVO, files2);
         files2.setTag(IdentityFilesTagEnum.PERSONAL_ID_FRONT);
         files2.setDescription(personalFrontFileResponseVO.getFilename());
         Identity_files files3 = new Identity_files();
-        EshipBeanUtils.copyExclude(personalBackFileResponseVO, files3);
+        BeanUtils.copyExclude(personalBackFileResponseVO, files3);
         files3.setTag(IdentityFilesTagEnum.PERSONAL_ID_BACK);
         files3.setDescription(personalBackFileResponseVO.getFilename());
         identity_filesList2.add(files2);

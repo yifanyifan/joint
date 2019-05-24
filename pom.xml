@@ -12,6 +12,7 @@
         <module>joint-interface</module>
         <module>joint-common-java</module>
         <module>joint-java</module>
+        <module>joint-utils-java</module>
     </modules>
 
     <dependencies>
