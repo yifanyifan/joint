@@ -28,7 +28,6 @@
         <druid.version>1.1.10</druid.version>
         <swagger.version>2.9.2</swagger.version>
         <dubbo.spring.boot>0.2.0</dubbo.spring.boot>
-        <poi.version>3.9</poi.version>
         <swaggerUi.version>1.8.9</swaggerUi.version>
     </properties>
 
@@ -138,12 +137,6 @@
             <groupId>org.apache.httpcomponents</groupId>
             <artifactId>httpmime</artifactId>
             <version>4.5.8</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <scope>provided</scope>
         </dependency>
 
         <dependency>
