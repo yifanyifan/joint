@@ -1,4 +1,4 @@
-package org.master.joint.service.impl;
+package org.master.joint.service;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import org.master.joint.service.DemoService;
