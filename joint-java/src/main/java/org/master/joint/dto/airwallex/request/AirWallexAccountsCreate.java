@@ -1,4 +1,4 @@
-package org.master.joint.dto.airwallex.accountscreate.request;
+package org.master.joint.dto.airwallex.request;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

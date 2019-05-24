@@ -21,13 +21,13 @@ public class ChargesCreateRequestVO {
     @ApiModelProperty(name = "clientId", value = "API密钥", required = true)
     private String clientId;
 
-    @ApiModelProperty(name = "amount", value = "金额", required = true)
+    @ApiModelProperty(name = "amount", value = "金额", required = true, example = "1")
     private BigDecimal amount;
 
     @ApiModelProperty(name = "currency", value = "货币类型", required = true)
     private String currency;
 
-    @ApiModelProperty(name = "reason", value = "用途", required = true)
+    @ApiModelProperty(name = "reason", value = "用途", required = true, example = "旅行")
     private ReasonEnum reason;
 
     @ApiModelProperty(name = "reference", value = "说明", required = true)

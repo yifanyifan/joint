@@ -1,7 +1,7 @@
 /**
  * Copyright 2019 bejson.com
  */
-package org.master.joint.dto.airwallex.accountscreate.response;
+package org.master.joint.dto.airwallex.response;
 
 import lombok.Data;
 

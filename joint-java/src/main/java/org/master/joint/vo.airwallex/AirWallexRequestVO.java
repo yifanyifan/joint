@@ -20,7 +20,7 @@ public class AirWallexRequestVO {
     @ApiModelProperty(name = "clientId", value = "API密钥", required = true)
     private String clientId;
 
-    @ApiModelProperty(name = "agreedToTerms", value = "是否同意协议", required = true)
+    @ApiModelProperty(name = "agreedToTerms", value = "是否同意协议", required = true, example = "true")
     private Boolean agreedToTerms;
 
     @ApiModelProperty(name = "businessName", value = "公司名称", required = true)
@@ -38,13 +38,13 @@ public class AirWallexRequestVO {
     @ApiModelProperty(name = "addressLine1", value = "地址（经营）", required = true)
     private String addressLine1;
 
-    @ApiModelProperty(name = "industryCategoryEnum", value = "子账号行业枚举", required = true)
+    @ApiModelProperty(name = "industryCategoryEnum", value = "子账号行业枚举", required = true, example = "电子商务市场平台")
     private IndustryCategoryEnum industryCategoryEnum;
 
-    @ApiModelProperty(name = "purpose", value = "用途", required = true)
+    //@ApiModelProperty(name = "purpose", value = "用途", required = true, example = "电子商务收入的收取与支付")
     private String purpose;
 
-    @ApiModelProperty(name = "purposeEnum", value = "用途枚举", required = true)
+    @ApiModelProperty(name = "purposeEnum", value = "用途枚举", required = true, example = "电子商务收入的收取与支付")
     private PurposeEnum purposeEnum;
 
     @ApiModelProperty(name = "url", value = "官网", required = true)

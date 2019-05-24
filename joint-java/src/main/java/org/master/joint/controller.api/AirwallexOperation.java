@@ -10,35 +10,35 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.master.joint.bean.BeanUtils;
+import org.master.joint.bean.DataGrid;
+import org.master.joint.bean.Version;
 import org.master.joint.dto.airwallex.AccountRedis;
-import org.master.joint.dto.airwallex.accountscreate.request.Account_details;
-import org.master.joint.dto.airwallex.accountscreate.request.Address;
-import org.master.joint.dto.airwallex.accountscreate.request.AirWallexAccountsCreate;
-import org.master.joint.dto.airwallex.accountscreate.request.Attachments1;
-import org.master.joint.dto.airwallex.accountscreate.request.Attachments2;
-import org.master.joint.dto.airwallex.accountscreate.request.Business_address;
-import org.master.joint.dto.airwallex.accountscreate.request.Business_details;
-import org.master.joint.dto.airwallex.accountscreate.request.ChargesCreateRequest;
-import org.master.joint.dto.airwallex.accountscreate.request.Identity_files;
-import org.master.joint.dto.airwallex.accountscreate.request.Legal_rep_details;
-import org.master.joint.dto.airwallex.accountscreate.request.Primary_contact;
-import org.master.joint.vo.airwallex.BalancesCurrentResponse;
-import org.master.joint.vo.airwallex.BalancesHistoryResponse;
-import org.master.joint.vo.airwallex.ChargesCreateResponseVO;
+import org.master.joint.dto.airwallex.request.Account_details;
+import org.master.joint.dto.airwallex.request.Address;
+import org.master.joint.dto.airwallex.request.AirWallexAccountsCreate;
+import org.master.joint.dto.airwallex.request.Attachments1;
+import org.master.joint.dto.airwallex.request.Attachments2;
+import org.master.joint.dto.airwallex.request.Business_address;
+import org.master.joint.dto.airwallex.request.Business_details;
+import org.master.joint.dto.airwallex.request.ChargesCreateRequest;
+import org.master.joint.dto.airwallex.request.Identity_files;
+import org.master.joint.dto.airwallex.request.Legal_rep_details;
+import org.master.joint.dto.airwallex.request.Primary_contact;
 import org.master.joint.enums.IdentityFilesTagEnum;
 import org.master.joint.enums.IndustryCategoryEnum;
 import org.master.joint.enums.PurposeEnum;
+import org.master.joint.http.JsoupUtils;
 import org.master.joint.service.DemoService;
 import org.master.joint.service.RedisHashService;
-import org.master.joint.bean.DataGrid;
-import org.master.joint.bean.BeanUtils;
-import org.master.joint.bean.Version;
-import org.master.joint.http.JsoupUtils;
 import org.master.joint.vo.airwallex.AirWallexRequestVO;
 import org.master.joint.vo.airwallex.AirWallexResponseVO;
 import org.master.joint.vo.airwallex.BalancesCurrentRequestVO;
+import org.master.joint.vo.airwallex.BalancesCurrentResponse;
 import org.master.joint.vo.airwallex.BalancesHistoryRequestVO;
+import org.master.joint.vo.airwallex.BalancesHistoryResponse;
 import org.master.joint.vo.airwallex.ChargesCreateRequestVO;
+import org.master.joint.vo.airwallex.ChargesCreateResponseVO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -235,9 +235,9 @@ public class AirwallexOperation {
 
     @ApiOperation(value = "创建子账号", notes = "by yifan")
     @ApiImplicitParams({
-            @ApiImplicitParam(name = "businessLicenseFile", value = "营业执照", required = true),
-            @ApiImplicitParam(name = "personalFrontFile", value = "身份证正面", required = true),
-            @ApiImplicitParam(name = "personalBackFile", value = "身份证反面", required = true, paramType = "file", dataType = "file")
+            @ApiImplicitParam(name = "businessLicenseFile", value = "营业执照", required = true, dataType = "MultipartFile", allowMultiple = true),
+            @ApiImplicitParam(name = "personalFrontFile", value = "身份证正面", required = true, dataType = "MultipartFile", allowMultiple = true),
+            @ApiImplicitParam(name = "personalBackFile", value = "身份证反面", required = true, dataType = "MultipartFile", allowMultiple = true)
     })
     @RequestMapping(value = "/accountsCreate", method = RequestMethod.POST)
     public DataGrid accountsCreate(AirWallexRequestVO airWallexRequestVO, @RequestParam("businessLicenseFile") MultipartFile businessLicenseFile, @RequestParam("personalFrontFile") MultipartFile personalFrontFile, @RequestParam("personalBackFile") MultipartFile personalBackFile) {
@@ -400,7 +400,8 @@ public class AirwallexOperation {
 
         String purposeValue = "";
         if (!IndustryCategoryEnum.其他.equals(industryCategoryEnum)) {
-            PurposeEnum purposeEnum = PurposeEnum.valueOf(airWallexRequestVO.getPurpose());
+            //PurposeEnum purposeEnum = PurposeEnum.valueOf(airWallexRequestVO.getPurpose());
+            PurposeEnum purposeEnum = airWallexRequestVO.getPurposeEnum();
             purposeValue = purposeEnum.getValue();
             airWallexRequestVO.setPurposeEnum(purposeEnum);
         }

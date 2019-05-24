@@ -3,7 +3,7 @@ package org.master.joint.vo.airwallex;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.master.joint.dto.airwallex.accountscreate.response.Attachments;
+import org.master.joint.dto.airwallex.response.Attachments;
 
 import java.util.Date;
 import java.util.List;
