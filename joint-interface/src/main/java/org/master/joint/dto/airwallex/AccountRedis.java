@@ -1,6 +1,8 @@
-package org.master.joint.dto.airwallex.accountscreate.redis;
+package org.master.joint.dto.airwallex;
 
 import lombok.Data;
+
+import java.io.Serializable;
 
 /**
  * @author: Yifan
@@ -9,7 +11,7 @@ import lombok.Data;
  * Modified By: 新增子账户后返回数据集合
  */
 @Data
-public class AccountRedis {
+public class AccountRedis implements Serializable {
     /**
      * ID
      */

@@ -30,8 +30,9 @@ dubbo:
     id: id-joint-common-app
     name: joint-common
     qos:
-      port: 22223
+      port: 22222
       enable: true
+      qos-accept-foreign-ip: false
   ## ProtocolConfig - Bean Dubbo 服务协议配置
   protocol:
     id: id-joint-common-protocol
@@ -43,7 +44,7 @@ dubbo:
   ## RegistryConfig Bean
   registry:
     id: id-joint-common-registry
-    address: zookeeper://localhost:2181
+    address: zookeeper://192.168.8.168:2181
   ## ProviderConfig Bean
   provider:
     id: id-joint-common-provider

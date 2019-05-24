@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
-import org.master.joint.dto.airwallex.accountscreate.redis.AccountRedis;
+import org.master.joint.dto.airwallex.AccountRedis;
 import org.master.joint.dto.airwallex.accountscreate.request.Account_details;
 import org.master.joint.dto.airwallex.accountscreate.request.Address;
 import org.master.joint.dto.airwallex.accountscreate.request.AirWallexAccountsCreate;
@@ -29,11 +29,11 @@ import org.master.joint.enums.IdentityFilesTagEnum;
 import org.master.joint.enums.IndustryCategoryEnum;
 import org.master.joint.enums.PurposeEnum;
 import org.master.joint.service.DemoService;
+import org.master.joint.service.RedisHashService;
 import org.master.joint.utils.bean.DataGrid;
 import org.master.joint.utils.bean.EshipBeanUtils;
 import org.master.joint.utils.bean.Version;
 import org.master.joint.utils.jsoup.JsoupUtils;
-import org.master.joint.utils.redis.RedisHashCache;
 import org.master.joint.vo.airwallex.AirWallexRequestVO;
 import org.master.joint.vo.airwallex.AirWallexResponseVO;
 import org.master.joint.vo.airwallex.BalancesCurrentRequestVO;
@@ -46,7 +46,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -64,7 +63,6 @@ import java.util.UUID;
 @Slf4j
 @Api(value = "AirwallexOperation", tags = "Airwallex操作类")
 public class AirwallexOperation {
-
     private static final String AIRWALLEXACCOUNT = "AirwallexAccount";
 
     @Value("${airwallex.authenticationUrl}")
@@ -85,8 +83,8 @@ public class AirwallexOperation {
     @Value("${airwallex.chargesCreateUrl}")
     private String chargesCreateUrl;
 
-    @Resource
-    private RedisHashCache redisHashCache;
+    @Reference
+    private RedisHashService redisHashService;
 
     @Reference
     private DemoService demoService;
@@ -110,7 +108,7 @@ public class AirwallexOperation {
 
             Map header = getHeaderAuthorRequest(token);
 
-            AccountRedis accountRedis = redisHashCache.get(AIRWALLEXACCOUNT, chargesCreateRequestVO.getEmail(), AccountRedis.class);
+            AccountRedis accountRedis = redisHashService.get(AIRWALLEXACCOUNT, chargesCreateRequestVO.getEmail(), AccountRedis.class);
             if (accountRedis == null) {
                 dataGrid.setMsg("Redis中未找到子账户Email对应的ID");
                 return dataGrid;
@@ -165,7 +163,7 @@ public class AirwallexOperation {
             }
 
             Map request = getHeaderAuthorRequest(token);
-            AccountRedis accountRedis = redisHashCache.get(AIRWALLEXACCOUNT, airWallexBalancesHistoryRequestVO.getEmail(), AccountRedis.class);
+            AccountRedis accountRedis = redisHashService.get(AIRWALLEXACCOUNT, airWallexBalancesHistoryRequestVO.getEmail(), AccountRedis.class);
             if (accountRedis == null) {
                 dataGrid.setMsg("Redis中未找到子账户Email对应的ID");
                 return dataGrid;
@@ -208,7 +206,7 @@ public class AirwallexOperation {
             String token = airWallexAuthenticationResponse.getToken();
 
             Map<String, String> balancesCurrentRequest = getHeaderAuthorRequest(token);
-            AccountRedis accountRedis = redisHashCache.get(AIRWALLEXACCOUNT, airWallexRequestVO.getEmail(), AccountRedis.class);
+            AccountRedis accountRedis = redisHashService.get(AIRWALLEXACCOUNT, airWallexRequestVO.getEmail(), AccountRedis.class);
             if (accountRedis == null) {
                 dataGrid.setMsg("Redis中未找到子账户Email对应的ID");
                 return dataGrid;
@@ -292,7 +290,7 @@ public class AirwallexOperation {
             accountRedis.setId(airWallexResponseVO.getId());
             String email = airWallexResponseVO.getPrimary_contact().getEmail();
             accountRedis.setEmail(email);
-            redisHashCache.put(AIRWALLEXACCOUNT, email, accountRedis);
+            redisHashService.put(AIRWALLEXACCOUNT, email, accountRedis);
 
             dataGrid.setFlag(true);
             dataGrid.setObj(airWallexResponseVO);
