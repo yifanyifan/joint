@@ -22,9 +22,9 @@ import org.master.joint.dto.airwallex.accountscreate.request.ChargesCreateReques
 import org.master.joint.dto.airwallex.accountscreate.request.Identity_files;
 import org.master.joint.dto.airwallex.accountscreate.request.Legal_rep_details;
 import org.master.joint.dto.airwallex.accountscreate.request.Primary_contact;
-import org.master.joint.dto.airwallex.accountscreate.response.BalancesCurrentResponse;
-import org.master.joint.dto.airwallex.accountscreate.response.BalancesHistoryResponse;
-import org.master.joint.dto.airwallex.accountscreate.response.ChargesCreateResponse;
+import org.master.joint.vo.airwallex.BalancesCurrentResponse;
+import org.master.joint.vo.airwallex.BalancesHistoryResponse;
+import org.master.joint.vo.airwallex.ChargesCreateResponseVO;
 import org.master.joint.enums.IdentityFilesTagEnum;
 import org.master.joint.enums.IndustryCategoryEnum;
 import org.master.joint.enums.PurposeEnum;
@@ -124,14 +124,14 @@ public class AirwallexOperation {
             String responseStr = JsoupUtils.post(chargesCreateUrl, header, JSON.toJSONString(airWallexChargesCreate), null);
             log.info("请求子账户划拨到主账户接口结束, responseObj={}", responseStr);
 
-            ChargesCreateResponse chargesCreateResponse = JSONObject.parseObject(responseStr, ChargesCreateResponse.class);
+            ChargesCreateResponseVO chargesCreateResponseVO = JSONObject.parseObject(responseStr, ChargesCreateResponseVO.class);
 
-            if (StringUtils.isEmpty(chargesCreateResponse.getMessage())) {
-                dataGrid.setObj(chargesCreateResponse);
+            if (StringUtils.isEmpty(chargesCreateResponseVO.getMessage())) {
+                dataGrid.setObj(chargesCreateResponseVO);
                 dataGrid.setFlag(true);
                 dataGrid.setMsg("子账户划拨到主账户成功");
             } else {
-                dataGrid.setMsg("子账户划拨到主账户失败：" + chargesCreateResponse.getMessage());
+                dataGrid.setMsg("子账户划拨到主账户失败：" + chargesCreateResponseVO.getMessage());
             }
         } catch (Exception e) {
             log.info(e.getMessage(), e);
@@ -170,9 +170,9 @@ public class AirwallexOperation {
             }
             request.put("x-on-behalf-of", accountRedis.getId());
 
-            log.info("请求查询子账户余额接口开始，header={}", request.toString());
+            log.info("请求查询子账户流水接口开始，header={}", request.toString());
             String responseStr = JsoupUtils.get(balancesHistoryUrlNow.toString(), request);
-            log.info("请求查询子账户余额接口结束, responseObj={}", responseStr);
+            log.info("请求查询子账户流水接口结束, responseObj={}", responseStr);
 
             BalancesHistoryResponse balancesHistoryResponse = JSON.parseObject(responseStr, BalancesHistoryResponse.class);
             if (StringUtils.isEmpty(balancesHistoryResponse.getMessage())) {
@@ -237,7 +237,7 @@ public class AirwallexOperation {
     @ApiImplicitParams({
             @ApiImplicitParam(name = "businessLicenseFile", value = "营业执照", required = true),
             @ApiImplicitParam(name = "personalFrontFile", value = "身份证正面", required = true),
-            @ApiImplicitParam(name = "personalBackFile", value = "身份证反面", required = true, paramType = "form", dataType = "file")
+            @ApiImplicitParam(name = "personalBackFile", value = "身份证反面", required = true, paramType = "file", dataType = "file")
     })
     @RequestMapping(value = "/accountsCreate", method = RequestMethod.POST)
     public DataGrid accountsCreate(AirWallexRequestVO airWallexRequestVO, @RequestParam("businessLicenseFile") MultipartFile businessLicenseFile, @RequestParam("personalFrontFile") MultipartFile personalFrontFile, @RequestParam("personalBackFile") MultipartFile personalBackFile) {

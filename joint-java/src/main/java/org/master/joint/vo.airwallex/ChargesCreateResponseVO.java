@@ -1,4 +1,4 @@
-package org.master.joint.dto.airwallex.accountscreate.response;
+package org.master.joint.vo.airwallex;
 
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import java.math.BigDecimal;
  * @Description: 子账户划拨到主账户返回数据
  */
 @Data
-public class ChargesCreateResponse {
+public class ChargesCreateResponseVO {
     /**
      * 发生额
      */

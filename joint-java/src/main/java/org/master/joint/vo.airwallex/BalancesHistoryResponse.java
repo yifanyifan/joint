@@ -1,4 +1,4 @@
-package org.master.joint.dto.airwallex.accountscreate.response;
+package org.master.joint.vo.airwallex;
 
 import lombok.Data;
 

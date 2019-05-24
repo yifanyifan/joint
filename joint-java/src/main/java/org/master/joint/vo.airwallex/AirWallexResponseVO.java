@@ -3,10 +3,10 @@ package org.master.joint.vo.airwallex;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
-import org.master.joint.dto.airwallex.accountscreate.response.Account_details;
-import org.master.joint.dto.airwallex.accountscreate.response.Primary_contact;
+import org.master.joint.dto.airwallex.accountscreate.response.Attachments;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author: Yifan
@@ -51,4 +51,67 @@ public class AirWallexResponseVO {
 
     @ApiModelProperty(name = "message", value = "信息")
     private String message;
+
+    @Data
+    public class Account_details {
+        private Business_details business_details;
+        private List<String> director_details;
+        private List<String> beneficial_owners;
+        private Authorised_person_details authorised_person_details;
+        private Legal_rep_details legal_rep_details;
+
+        @Data
+        public class Legal_rep_details {
+            private Attachments attachments;
+            private String nationality;
+        }
+
+        @Data
+        public class Authorised_person_details {
+            private Attachments attachments;
+            private String filling_as;
+        }
+
+        @Data
+        public class Business_details {
+            private String business_name;
+            private Address address;
+            private boolean agreed_to_terms;
+            private Attachments attachments;
+            private String industry_category;
+            private Business_address business_address;
+            private String purpose;
+            private boolean opt_in_for_marketing;
+            private String url;
+
+            @Data
+            public class Address {
+                private String country_code;
+                private String address_line2;
+                private String address_line1;
+                private String postcode;
+            }
+
+            @Data
+            public class Business_address {
+                private String country_code;
+                private String address_line2;
+                private String address_line1;
+                private String suburb;
+                private String state;
+            }
+        }
+    }
+
+    @Data
+    public class Primary_contact {
+        private Attachments attachments;
+        private Platform_connected_notification platform_connected_notification;
+        private String email;
+
+        @Data
+        public class Platform_connected_notification {
+            private String notification_tag;
+        }
+    }
 }
