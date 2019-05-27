@@ -49,6 +49,7 @@ dubbo:
   registry:
     id: id-joint-java-registry
     address: zookeeper://192.168.8.168:2181
+    check: false
   ## ProviderConfig Bean
   consumer:
     version: yifan
