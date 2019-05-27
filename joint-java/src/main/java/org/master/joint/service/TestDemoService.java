@@ -1,5 +1,7 @@
 package org.master.joint.service;
 
+import org.master.joint.entity.demo.TestDemo;
+
 /**
  * @author: Yifan
  * @Description:
@@ -7,4 +9,5 @@ package org.master.joint.service;
  * Modified By:
  */
 public interface TestDemoService {
+    public void save(TestDemo testDemo);
 }

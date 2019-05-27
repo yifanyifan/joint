@@ -6,8 +6,12 @@ import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.Column;
+import javax.persistence.EntityListeners;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -15,6 +19,7 @@ import java.util.Date;
 
 @ApiModel(value = "BaseEntity", description = "实体父类")
 @MappedSuperclass
+@EntityListeners(AuditingEntityListener.class)
 public abstract class BaseEntity {
 
     private final static Logger log = LoggerFactory.getLogger(BaseEntity.class);
@@ -31,11 +36,13 @@ public abstract class BaseEntity {
     protected boolean deleted;
 
     @ApiModelProperty(hidden = true)
-    @Column(name = "created_date", nullable = true, updatable = false, columnDefinition = "datetime(3) default now(3)")
+    @CreatedDate
+    @Column(updatable = false, nullable = false)
     protected Date createdDate;
 
     @ApiModelProperty(hidden = true)
-    @Column(name = "LAST_UPDATED_DATE", columnDefinition = "datetime(3) default now(3)")
+    @LastModifiedDate
+    @Column(nullable = false)
     protected Date lastUpdatedDate;
 
 }
