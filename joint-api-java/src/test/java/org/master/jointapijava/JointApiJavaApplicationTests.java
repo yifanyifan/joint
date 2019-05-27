@@ -1,4 +1,4 @@
-package org.master.joint;
+package org.master.jointapijava;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -7,7 +7,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class JointDubboJavaApplicationTests {
+public class JointApiJavaApplicationTests {
 
 	@Test
 	public void contextLoads() {
