@@ -2,6 +2,8 @@ package org.master.joint.bean;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 
 import java.beans.BeanInfo;
 import java.beans.Introspector;
@@ -11,17 +13,18 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class BeanUtils {
     private static Logger logger = LoggerFactory.getLogger(BeanUtils.class);
 
     /**
-     * 只拷贝bean的基本类型属性到map
-     *
-     * @param target
-     * @param source
+     * @Author: Yifan
+     * @Date: 2019/5/29 11:45
+     * @Description: 拷贝bean的基本类型属性到map
      */
     public static void copyPojoProps(Map<String, Object> target, Object source) {
         List<Field> fields = new ArrayList<Field>();
@@ -56,11 +59,9 @@ public class BeanUtils {
     }
 
     /**
-     * 将List<Entity> 转换成 List<Map>, 供Dubbo通讯
-     *
-     * @param sources
-     * @return
-     * @author LJ
+     * @Author: Yifan
+     * @Date: 2019/5/29 11:46
+     * @Description: 将List<Entity> 转换成 List<Map>
      */
     public static <E> List<Map<String, Object>> copyPojos2Maps(List<E> sources) {
         List<Map<String, Object>> maps = new ArrayList<Map<String, Object>>();
@@ -76,14 +77,9 @@ public class BeanUtils {
     }
 
     /**
-     * 将List<Entity> 转换成 List<Dto> , 供Dubbo通讯
-     *
-     * @param sources
-     * @param dtoClazz
-     * @return
-     * @throws InstantiationException
-     * @throws IllegalAccessException
-     * @author LJ
+     * @Author: Yifan
+     * @Date: 2019/5/29 11:46
+     * @Description: 将List<Entity> 转换成 List<Dto>
      */
     public static <E, F> List<F> copyPojos2Dtos(List<E> sources, Class<F> dtoClazz) {
         List<F> dtos = new ArrayList<F>();
@@ -112,9 +108,9 @@ public class BeanUtils {
     }
 
     /**
+     * @Author: Yifan
+     * @Date: 2019/5/29 11:46
      * @Description: 将map 转为bean
-     * @param:
-     * @Date: 15:09 2017/9/12
      */
     public static <T> T map2Bean(Map<String, Object> map, Class<T> clz) throws Exception {
         //new 出一个对象
@@ -138,8 +134,8 @@ public class BeanUtils {
     }
 
     /**
-     * @Author: HuKai
-     * @Date: 2017/12/26 15:07
+     * @Author: Yifan
+     * @Date: 2019/5/29 11:46
      * @Description: entity之间拷贝属性时忽略baseEntity中的属性
      */
     public static void copyExclude(Object source, Object target) {
@@ -147,17 +143,21 @@ public class BeanUtils {
     }
 
     /**
-     * 判断高低估值 TuShiDing
-     *
-     * @param price
-     * @return
+     * @Author: Yifan
+     * @Date: 2019/5/29 11:32
+     * @Description: 获取Null元素名称
      */
-    public static String getAppraisement(float coefficientXp, float coefficientValue, float price) {
-        if (price * 0.24 >= 15) {
-            return "H";
-        } else {
-            return "L";
+    public static String[] getNullPropertyNames(Object source) {
+        final BeanWrapper src = new BeanWrapperImpl(source);
+        java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
+
+        Set<String> emptyNames = new HashSet<String>();
+        for (java.beans.PropertyDescriptor pd : pds) {
+            Object srcValue = src.getPropertyValue(pd.getName());
+            if (srcValue == null) emptyNames.add(pd.getName());
         }
+        String[] result = new String[emptyNames.size()];
+        return emptyNames.toArray(result);
     }
 
 }
