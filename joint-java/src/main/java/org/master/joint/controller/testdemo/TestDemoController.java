@@ -4,15 +4,20 @@ import lombok.extern.slf4j.Slf4j;
 import org.master.joint.bean.DataGrid;
 import org.master.joint.bean.Version;
 import org.master.joint.entity.demo.TestDemo;
+import org.master.joint.rabbit.RabbitKeyConstant;
+import org.master.joint.rabbit.RabbitMessage;
 import org.master.joint.service.TestDemoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author: Yifan
@@ -29,6 +34,9 @@ public class TestDemoController {
     @Resource
     private TestDemoService testDemoService;
 
+    @Resource
+    private AmqpTemplate amqpTemplate;
+
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public DataGrid save(@RequestBody TestDemo testDemo) {
         DataGrid dataGrid = new DataGrid();
@@ -42,6 +50,19 @@ public class TestDemoController {
             logger.error(e.getMessage(), e);
             dataGrid.setMsg("新增失败");
         }
+
+        return dataGrid;
+    }
+
+    @RequestMapping(value = "/sendMsg", method = RequestMethod.POST)
+    public DataGrid sendMsg() {
+        DataGrid dataGrid = new DataGrid();
+
+        Map map = new HashMap();
+        map.put("a", "b");
+        RabbitMessage rabbitMessage = new RabbitMessage("test", "11111", map);
+
+        amqpTemplate.convertAndSend(RabbitKeyConstant.TEST_DIRECT_EXCHANGE, RabbitKeyConstant.TEST_ROUTING_KEY, rabbitMessage);
 
         return dataGrid;
     }
