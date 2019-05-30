@@ -8,3 +8,12 @@ spring:
     cache:
       channel:
         size: 50
+    # 开启ACK
+    listener:
+      direct:
+        acknowledge-mode: manual
+      simple:
+        acknowledge-mode: manual
+    # exchange到queue成功是否回调
+    template:
+      mandatory: true

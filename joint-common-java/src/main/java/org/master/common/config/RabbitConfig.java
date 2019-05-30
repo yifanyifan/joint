@@ -1,4 +1,4 @@
-package org.master.joint.config;
+package org.master.common.config;
 
 import org.master.joint.rabbit.RabbitKeyConstant;
 import org.springframework.amqp.core.Binding;

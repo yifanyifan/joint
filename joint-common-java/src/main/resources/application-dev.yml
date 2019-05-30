@@ -12,3 +12,25 @@ spring:
         max-wait: 6000    # 连接池最大阻塞等待时间（使用负值表示没有限制）
         max-idle: 10      # 连接池中的最大空闲连接
         min-idle: 5       # 连接池中的最小空闲连接
+  rabbitmq:
+    host: 192.168.8.169
+    port: 5672
+    username: admin
+    password: admin
+    virtual-host: /yifan
+    cache:
+      channel:
+        size: 50
+    # 开启发送确认
+    publisher-confirms: true
+    # 开启发送失败退回
+    publisher-returns: true
+    # 开启ACK
+    listener:
+      direct:
+        acknowledge-mode: manual
+      simple:
+        acknowledge-mode: manual
+    # exchange到queue成功是否回调
+    template:
+      mandatory: true

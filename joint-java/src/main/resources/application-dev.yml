@@ -29,15 +29,6 @@ spring:
       wall:
         config:
           multi-statement-allow: true
-  rabbitmq:
-    host: 192.168.8.169
-    port: 5672
-    username: admin
-    password: admin
-    virtual-host: /yifan
-    cache:
-      channel:
-        size: 50
 
 airwallex:
   authenticationUrl: https://api-demo.airwallex.com/api/v1/authentication/login
