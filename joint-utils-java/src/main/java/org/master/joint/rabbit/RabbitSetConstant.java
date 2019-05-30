@@ -1,6 +1,11 @@
 package org.master.joint.rabbit;
 
-public class RabbitKeyConstant {
+/**
+ * @Author: Yifan
+ * @Date: 2019/5/30 20:13
+ * @Description: MQ Exchange/Queue/Routing 名称定义集合
+ */
+public class RabbitSetConstant {
     /**
      * 测试队列名
      */
@@ -10,7 +15,6 @@ public class RabbitKeyConstant {
      * 测试交换机
      */
     public static final String TEST_DIRECT_EXCHANGE = "testDirectExchange";
-
 
     /**
      * 测试任务队列QueueKey

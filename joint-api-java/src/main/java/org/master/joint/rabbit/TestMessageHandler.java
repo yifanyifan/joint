@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
 public class TestMessageHandler {
     private static final Logger logger = LoggerFactory.getLogger(TestMessageHandler.class);
 
-    @RabbitListener(queues = RabbitKeyConstant.TEST_QUEUE)
+    @RabbitListener(queues = RabbitSetConstant.TEST_QUEUE)
     public void cc(RabbitMessage rabbitMessage, Message message, Channel channel) throws Exception {
         logger.info("接收消息：这个message已收到");
 

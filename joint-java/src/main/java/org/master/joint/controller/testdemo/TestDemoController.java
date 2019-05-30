@@ -5,8 +5,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.master.joint.bean.DataGrid;
 import org.master.joint.bean.Version;
 import org.master.joint.entity.demo.TestDemo;
-import org.master.joint.rabbit.RabbitKeyConstant;
 import org.master.joint.rabbit.RabbitMessage;
+import org.master.joint.rabbit.RabbitSetConstant;
 import org.master.joint.service.RabbitMessageServiceI;
 import org.master.joint.service.TestDemoService;
 import org.slf4j.Logger;
@@ -63,7 +63,8 @@ public class TestDemoController {
         map.put("a", "b");
         RabbitMessage rabbitMessage = new RabbitMessage("test", "11111", map);
 
-        rabbitMessageServiceI.sendMessage(RabbitKeyConstant.TEST_DIRECT_EXCHANGE, RabbitKeyConstant.TEST_ROUTING_KEY, rabbitMessage);
+        rabbitMessageServiceI.sendMessage(RabbitSetConstant.TEST_DIRECT_EXCHANGE, RabbitSetConstant.TEST_ROUTING_KEY, rabbitMessage);
+        
         return dataGrid;
     }
 }
