@@ -8,6 +8,10 @@ spring:
     cache:
       channel:
         size: 50
+    # 开启发送确认
+    publisher-confirms: true
+    # 开启发送失败退回
+    publisher-returns: true
     # 开启ACK
     listener:
       direct:
