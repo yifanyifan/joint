@@ -8,6 +8,7 @@ import org.master.joint.entity.demo.TestDemo;
 import org.master.joint.rabbit.RabbitMessage;
 import org.master.joint.rabbit.RabbitSetConstant;
 import org.master.joint.service.RabbitMessageServiceI;
+import org.master.joint.service.RedisHashService;
 import org.master.joint.service.TestDemoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +35,9 @@ public class TestDemoController {
 
     @Resource
     private TestDemoService testDemoService;
+
+    @Reference
+    private RedisHashService redisHashService;
 
     @Reference
     private RabbitMessageServiceI rabbitMessageServiceI;
@@ -64,7 +68,18 @@ public class TestDemoController {
         RabbitMessage rabbitMessage = new RabbitMessage("test", "11111", map);
 
         rabbitMessageServiceI.sendMessage(RabbitSetConstant.TEST_DIRECT_EXCHANGE, RabbitSetConstant.TEST_ROUTING_KEY, rabbitMessage);
-        
+
+        return dataGrid;
+    }
+
+    @RequestMapping(value = "/redisSendMsg", method = RequestMethod.POST)
+    public DataGrid redisSendMsg() {
+        DataGrid dataGrid = new DataGrid();
+
+        Map map = new HashMap();
+        map.put("a", "b");
+        redisHashService.put("AirwallexAccount", "1111", map);
+
         return dataGrid;
     }
 }

@@ -29,7 +29,6 @@ import org.master.joint.enums.IdentityFilesTagEnum;
 import org.master.joint.enums.IndustryCategoryEnum;
 import org.master.joint.enums.PurposeEnum;
 import org.master.joint.http.JsoupUtils;
-import org.master.joint.service.DemoService;
 import org.master.joint.service.RedisHashService;
 import org.master.joint.vo.airwallex.AirWallexRequestVO;
 import org.master.joint.vo.airwallex.AirWallexResponseVO;
@@ -85,9 +84,6 @@ public class AirwallexOperation {
 
     @Reference
     private RedisHashService redisHashService;
-
-    @Reference
-    private DemoService demoService;
 
     @ApiOperation(value = "子账户划拨到主账户", notes = "by yifan")
     @RequestMapping(value = "/chargesCreate", method = RequestMethod.POST)

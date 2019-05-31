@@ -13,7 +13,7 @@ import java.util.List;
 public class RedisHashServiceImpl implements RedisHashService {
 
     @Resource
-    private RedisTemplate<String, Object> redisTemplate;
+    private RedisTemplate<String, String> redisTemplate;
 
     /**
      * 判断key是否存在
@@ -21,6 +21,7 @@ public class RedisHashServiceImpl implements RedisHashService {
      * @param key   hash的key
      * @param field hash里面的字段名
      */
+    @Override
     public boolean hasKey(String key, String field) {
         return redisTemplate.opsForHash().hasKey(key, field);
     }
@@ -32,6 +33,7 @@ public class RedisHashServiceImpl implements RedisHashService {
      * @param field hash里面的字段名
      * @param value hash里面的字段的值
      */
+    @Override
     public void put(String key, String field, Object value) {
         redisTemplate.opsForHash().put(key, field, JSONObject.toJSONString(value));
     }
@@ -43,6 +45,7 @@ public class RedisHashServiceImpl implements RedisHashService {
      * @param field
      * @param clazz
      */
+    @Override
     public <T> T get(String key, String field, Class<T> clazz) {
         Object value = redisTemplate.opsForHash().get(key, field);
         if (value == null) {
@@ -57,6 +60,7 @@ public class RedisHashServiceImpl implements RedisHashService {
      * @param key
      * @param clazz
      */
+    @Override
     public <T> List<T> getValues(String key, Class<T> clazz) {
         List<Object> values = redisTemplate.opsForHash().values(key);
         List<T> objs = Lists.newArrayList();
@@ -70,6 +74,7 @@ public class RedisHashServiceImpl implements RedisHashService {
      * @param key
      * @param field
      */
+    @Override
     public void remove(String key, String field) {
         redisTemplate.opsForHash().delete(key, field);
     }
@@ -77,6 +82,7 @@ public class RedisHashServiceImpl implements RedisHashService {
     /**
      * 删除hash
      */
+    @Override
     public void deleteHash(String key) {
         redisTemplate.delete(key);
     }
