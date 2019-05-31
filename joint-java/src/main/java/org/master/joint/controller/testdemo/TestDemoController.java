@@ -4,6 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import lombok.extern.slf4j.Slf4j;
 import org.master.joint.bean.DataGrid;
 import org.master.joint.bean.Version;
+import org.master.joint.dto.AccountRedis;
 import org.master.joint.entity.demo.TestDemo;
 import org.master.joint.rabbit.RabbitMessage;
 import org.master.joint.rabbit.RabbitSetConstant;
@@ -76,9 +77,11 @@ public class TestDemoController {
     public DataGrid redisSendMsg() {
         DataGrid dataGrid = new DataGrid();
 
-        Map map = new HashMap();
-        map.put("a", "b");
-        redisHashService.put("AirwallexAccount", "1111", map);
+        AccountRedis accountRedis = new AccountRedis();
+        accountRedis.setId("11111111");
+        accountRedis.setEmail("222222222222");
+
+        redisHashService.put("AirwallexAccount", "1111", accountRedis);
 
         return dataGrid;
     }

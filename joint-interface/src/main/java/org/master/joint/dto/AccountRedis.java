@@ -1,4 +1,4 @@
-package org.master.joint.dto.airwallex;
+package org.master.joint.dto;
 
 import lombok.Data;
 
