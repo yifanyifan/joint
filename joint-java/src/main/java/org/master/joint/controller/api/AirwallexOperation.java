@@ -13,7 +13,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.master.joint.bean.BeanUtils;
 import org.master.joint.bean.DataGrid;
 import org.master.joint.bean.Version;
-import org.master.joint.dto.AccountRedis;
+import org.master.joint.dto.airwallex.AccountRedis;
 import org.master.joint.dto.airwallex.request.Account_details;
 import org.master.joint.dto.airwallex.request.Address;
 import org.master.joint.dto.airwallex.request.AirWallexAccountsCreate;

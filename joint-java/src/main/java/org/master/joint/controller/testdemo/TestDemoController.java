@@ -4,7 +4,7 @@ import com.alibaba.dubbo.config.annotation.Reference;
 import lombok.extern.slf4j.Slf4j;
 import org.master.joint.bean.DataGrid;
 import org.master.joint.bean.Version;
-import org.master.joint.dto.AccountRedis;
+import org.master.joint.dto.airwallex.AccountRedis;
 import org.master.joint.entity.demo.TestDemo;
 import org.master.joint.rabbit.RabbitMessage;
 import org.master.joint.rabbit.RabbitSetConstant;
